@@ -12,8 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
 import { loginSuccess } from '../store/authSlice';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { LoginForm } from '../components/LoginForm';
-import { GoogleButton } from '../components/GoogleButton';
-import { GuestButton } from '../components/GuestButton';
+import { Button } from '../../../shared/components/Button';
 
 export const AuthScreen = () => {
     const { t, i18n } = useTranslation();
@@ -113,17 +112,11 @@ export const AuthScreen = () => {
                     </View>
 
                     {/* Login Button */}
-                    <TouchableOpacity
-                        onPress={() => {
-                            // This will be handled by the form
-                        }}
-                        className="w-full py-4 rounded-lg bg-light-primary active:bg-light-primaryDark mb-6"
-                        activeOpacity={0.8}
-                    >
-                        <Text className="text-white text-center text-base font-bold">
+                    <View className="mb-6">
+                        <Button variant="primary" onPress={() => { /* handled by form submit */ }}>
                             {t('auth.loginButton')}
-                        </Text>
-                    </TouchableOpacity>
+                        </Button>
+                    </View>
 
                     {/* Divider */}
                     <View className="flex-row items-center mb-6">
@@ -145,11 +138,15 @@ export const AuthScreen = () => {
 
                     {/* Google Button */}
                     <View className="mb-4">
-                        <GoogleButton onPress={handleGoogleLogin} />
+                        <Button variant="ghost" icon={'🔍'} onPress={handleGoogleLogin}>
+                            {t('auth.googleButton')}
+                        </Button>
                     </View>
 
                     {/* Guest Button */}
-                    <GuestButton onPress={handleGuestLogin} />
+                    <Button variant="ghost" onPress={handleGuestLogin}>
+                        {t('auth.guestButton')}
+                    </Button>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
