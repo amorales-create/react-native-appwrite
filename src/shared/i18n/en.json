@@ -1,0 +1,29 @@
+{
+    "auth": {
+        "title": "Welcome",
+        "subtitle": "Sign in to continue",
+        "email": "Email",
+        "password": "Password",
+        "emailPlaceholder": "your@email.com",
+        "passwordPlaceholder": "Your password",
+        "loginButton": "Sign In",
+        "googleButton": "Continue with Google",
+        "guestButton": "Enter as Guest",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email",
+        "passwordRequired": "Password is required",
+        "passwordMin": "Minimum 6 characters"
+    },
+    "products": {
+        "title": "Products",
+        "logout": "Logout",
+        "loading": "Loading products...",
+        "error": "Error loading products",
+        "noProducts": "No products available"
+    },
+    "common": {
+        "darkMode": "Dark mode",
+        "lightMode": "Light mode",
+        "language": "Language"
+    }
+}
