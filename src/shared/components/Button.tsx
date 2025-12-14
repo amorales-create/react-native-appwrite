@@ -36,7 +36,7 @@ export const Button: React.FC<ButtonProps> = ({ onPress, variant = 'ghost', icon
       className={`w-full py-3 rounded-lg ${isDark ? 'bg-dark-surface' : 'bg-light-surface'} ${className}`}
     >
       <View className="flex-row items-center justify-center">
-        {icon ? <View className="mr-3">{icon}</View> : null}
+        {icon ? <Text className="mr-3">{icon}</Text> : null}
         <Text className={`text-center text-base font-medium ${isDark ? 'text-dark-textSecondary' : 'text-light-textSecondary'}`}>{children}</Text>
       </View>
     </TouchableOpacity>

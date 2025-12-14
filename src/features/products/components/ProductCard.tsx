@@ -1,31 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Product } from '../../../shared/types';
-import { Card } from '../../../shared/components/Card';
+import Card from '../../../shared/components/Card';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  return (
-    <Card>
-      <View className="flex-row items-center mb-3">
-        <Text className="text-5xl mr-4">{product.image}</Text>
-        <View className="flex-1">
-          <Text className="text-lg font-bold mb-1">{product.name}</Text>
-          <Text className="text-sm text-light-textSecondary">{product.category}</Text>
-        </View>
-      </View>
-
-      <Text className="text-sm mb-3 text-light-textSecondary">{product.description}</Text>
-
-      <View className="flex-row justify-between items-center">
-        <Text className="text-2xl font-bold text-light-primary">${product.price.toFixed(2)}</Text>
-        <View className="px-4 py-2 rounded-lg bg-light-surface">
-          <Text className="text-xs font-medium text-light-textSecondary">{product.category}</Text>
-        </View>
-      </View>
-    </Card>
-  );
+  return <Card item={product} />;
 };

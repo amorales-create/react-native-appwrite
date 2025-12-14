@@ -6,7 +6,7 @@ import { selectProducts } from '../store/productsSelectors';
 import { loadMockProducts } from '../store/productsSlice';
 import { logout } from '../../auth/store/authSlice';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
-import { ProductCard } from '../components/ProductCard';
+import { Card } from '../../../shared/components/Card';
 
 export const ProductListScreen = () => {
     const { t, i18n } = useTranslation();
@@ -101,7 +101,7 @@ export const ProductListScreen = () => {
             <FlatList
                 data={products}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <ProductCard product={item} />}
+                renderItem={({ item }) => <Card item={item} />}
                 contentContainerClassName="px-6 py-6"
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={

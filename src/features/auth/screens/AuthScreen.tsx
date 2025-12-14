@@ -13,6 +13,7 @@ import { loginSuccess } from '../store/authSlice';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { LoginForm } from '../components/LoginForm';
 import { Button } from '../../../shared/components/Button';
+import { LOG_MESSAGES, DEFAULTS, DIVIDER, THEME_EMOJI, ICONS, AUTH } from '../../../shared/constants/ui';
 
 export const AuthScreen = () => {
     const { t, i18n } = useTranslation();
@@ -24,7 +25,7 @@ export const AuthScreen = () => {
         // For now, just simulate login (no actual authentication)
         dispatch(
             loginSuccess({
-                id: '1',
+                id: AUTH.DEFAULT_USER_ID,
                 email: data.email,
                 name: data.email.split('@')[0],
                 type: 'email',
@@ -34,14 +35,14 @@ export const AuthScreen = () => {
 
     const handleGoogleLogin = () => {
         // Visual only - no functionality yet
-        console.log('Google login pressed');
+        console.log(LOG_MESSAGES.GOOGLE_LOGIN_PRESSED);
     };
 
     const handleGuestLogin = () => {
         dispatch(
             loginSuccess({
-                id: 'guest',
-                name: 'Guest User',
+                id: AUTH.GUEST_ID,
+                name: DEFAULTS.GUEST_NAME,
                 type: 'guest',
             })
         );
@@ -86,7 +87,7 @@ export const AuthScreen = () => {
                                 }`}
                             activeOpacity={0.7}
                         >
-                            <Text className="text-xl">{isDark ? '🌙' : '☀️'}</Text>
+                            <Text className="text-xl">{isDark ? THEME_EMOJI.DARK : THEME_EMOJI.LIGHT}</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -128,7 +129,7 @@ export const AuthScreen = () => {
                             className={`mx-4 ${isDark ? 'text-dark-textSecondary' : 'text-light-textSecondary'
                                 }`}
                         >
-                            o
+                            {DIVIDER.OR}
                         </Text>
                         <View
                             className={`flex-1 h-px ${isDark ? 'bg-dark-border' : 'bg-light-border'
@@ -138,7 +139,7 @@ export const AuthScreen = () => {
 
                     {/* Google Button */}
                     <View className="mb-4">
-                        <Button variant="ghost" icon={'🔍'} onPress={handleGoogleLogin}>
+                        <Button variant="ghost" icon={ICONS.GOOGLE} onPress={handleGoogleLogin}>
                             {t('auth.googleButton')}
                         </Button>
                     </View>
