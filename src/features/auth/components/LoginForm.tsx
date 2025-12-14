@@ -8,9 +8,10 @@ import { Button } from '../../../shared/components/Button';
 interface LoginFormProps {
     onSubmit: (data: { email: string; password: string }) => void;
     onSignup?: (data: { email: string; password: string }) => void;
+    isSubmitting?: boolean;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup, isSubmitting = false }) => {
     const { t } = useTranslation();
     const theme = useAppSelector((state) => state.theme.mode);
     const isDark = theme === 'dark';
@@ -106,7 +107,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup }) => {
             </View>
             {/* Submit Button */}
             <View>
-                <Button variant="primary" onPress={handleSubmit(onSubmit)}>
+                <Button variant="primary" onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
                     {t('auth.loginButton')}
                 </Button>
             </View>
@@ -114,7 +115,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup }) => {
             {/* Signup Button (optional) */}
             {onSignup && (
                 <View>
-                    <Button variant="ghost" onPress={handleSubmit((data) => onSignup && onSignup(data))}>
+                    <Button variant="ghost" onPress={handleSubmit((data) => onSignup && onSignup(data))} disabled={isSubmitting}>
                         {t('auth.signupButton')}
                     </Button>
                 </View>

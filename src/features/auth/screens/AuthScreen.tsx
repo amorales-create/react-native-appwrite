@@ -6,6 +6,7 @@ import {
     ScrollView,
     KeyboardAvoidingView,
     Platform,
+    Alert,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
@@ -27,6 +28,7 @@ export const AuthScreen = () => {
         const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const isDark = theme === 'dark';
     const authLoading = useAppSelector((state) => state.auth.loading);
+    const authError = useAppSelector((state) => state.auth.error);
 
     const handleEmailLogin = (data: { email: string; password: string }) => {
         dispatch(loginUser(data.email, data.password));
@@ -62,6 +64,13 @@ export const AuthScreen = () => {
             navigation.replace('Products');
         }
     }, [isAuthenticated, navigation]);
+
+    // Show errors as alerts
+    React.useEffect(() => {
+        if (authError) {
+            Alert.alert('Authentication error', authError);
+        }
+    }, [authError]);
 
     return (
         <KeyboardAvoidingView
@@ -119,7 +128,7 @@ export const AuthScreen = () => {
 
                     {/* Login Form */}
                     <View className="mb-6">
-                        <LoginForm onSubmit={handleEmailLogin} onSignup={(data) => dispatch(registerUser(data.email, data.password))} />
+                        <LoginForm onSubmit={handleEmailLogin} onSignup={(data) => dispatch(registerUser(data.email, data.password))} isSubmitting={authLoading} />
                     </View>
 
                     {/* Login handled by form submit inside LoginForm */}
@@ -144,13 +153,13 @@ export const AuthScreen = () => {
 
                     {/* Google Button */}
                     <View className="mb-4">
-                        <Button variant="ghost" icon={ICONS.GOOGLE} onPress={handleGoogleLogin}>
+                        <Button variant="ghost" icon={ICONS.GOOGLE} onPress={handleGoogleLogin} disabled={authLoading}>
                             {t('auth.googleButton')}
                         </Button>
                     </View>
 
                     {/* Guest Button */}
-                    <Button variant="ghost" onPress={handleGuestLogin}>
+                    <Button variant="ghost" onPress={handleGuestLogin} disabled={authLoading}>
                         {t('auth.guestButton')}
                     </Button>
                 </View>

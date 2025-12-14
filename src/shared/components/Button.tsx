@@ -10,18 +10,19 @@ interface ButtonProps {
   icon?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ onPress, variant = 'ghost', icon, children, className = '' }) => {
+export const Button: React.FC<ButtonProps> = ({ onPress, variant = 'ghost', icon, children, className = '', disabled = false }) => {
   const theme = useAppSelector((state) => state.theme.mode);
   const isDark = theme === 'dark';
 
   if (variant === 'primary') {
     return (
       <TouchableOpacity
-        onPress={onPress}
-        activeOpacity={0.8}
-        className={`w-full py-3 rounded-lg bg-light-primary ${className}`}
+        onPress={disabled ? undefined : onPress}
+        activeOpacity={disabled ? 1 : 0.8}
+        className={`w-full py-3 rounded-lg bg-light-primary ${disabled ? 'opacity-50' : ''} ${className}`}
       >
         <Text className="text-white text-center text-base font-bold">{children}</Text>
       </TouchableOpacity>
@@ -31,9 +32,9 @@ export const Button: React.FC<ButtonProps> = ({ onPress, variant = 'ghost', icon
   // ghost
   return (
     <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.7}
-      className={`w-full py-3 rounded-lg ${isDark ? 'bg-dark-surface' : 'bg-light-surface'} ${className}`}
+      onPress={disabled ? undefined : onPress}
+      activeOpacity={disabled ? 1 : 0.7}
+      className={`w-full py-3 rounded-lg ${isDark ? 'bg-dark-surface' : 'bg-light-surface'} ${disabled ? 'opacity-50' : ''} ${className}`}
     >
       <View className="flex-row items-center justify-center">
         {icon ? <Text className="mr-3">{icon}</Text> : null}
