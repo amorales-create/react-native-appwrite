@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
 import { selectProducts } from '../store/productsSelectors';
@@ -7,6 +7,7 @@ import { loadMockProducts } from '../store/productsSlice';
 import { logout } from '../../auth/store/authSlice';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { Card } from '../../../shared/components/Card';
+import Avatar from '../../../shared/components/Avatar';
 
 export const ProductListScreen = () => {
     const { t, i18n } = useTranslation();
@@ -58,6 +59,14 @@ export const ProductListScreen = () => {
                     </View>
 
                     <View className="flex-row space-x-2">
+                        {user && (
+                            <View className="mr-3">
+                                <Avatar
+                                    email={user.email}
+                                    onPress={() => Alert.alert('User', user.email ?? 'No email')}
+                                />
+                            </View>
+                        )}
                         {/* Language Toggle */}
                         <TouchableOpacity
                             onPress={toggleLanguage}

@@ -11,8 +11,9 @@ function normalizeUser(raw: any): User {
 }
 
 export async function loginWithEmail(email: string, password: string): Promise<User> {
-    await account.createSession(email, password as string);
+    await account.createEmailPasswordSession(email, password as string);
     const me = await account.get();
+    console.log('Account get after login:', me);
     return normalizeUser(me);
 }
 

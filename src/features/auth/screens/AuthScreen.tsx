@@ -13,6 +13,9 @@ import { loginSuccess } from '../store/authSlice';
 import { loginUser, loginWithGoogleThunk, registerUser } from '../store/authThunks';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { LoginForm } from '../components/LoginForm';
+    import { useNavigation } from '@react-navigation/native';
+    import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+    import type { RootStackParamList } from '../../../navigation/AppNavigator';
 import { Button } from '../../../shared/components/Button';
 import { LOG_MESSAGES, DEFAULTS, DIVIDER, THEME_EMOJI, ICONS, AUTH } from '../../../shared/constants/ui';
 
@@ -20,6 +23,8 @@ export const AuthScreen = () => {
     const { t, i18n } = useTranslation();
     const dispatch = useAppDispatch();
     const theme = useAppSelector((state) => state.theme.mode);
+        const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+        const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const isDark = theme === 'dark';
     const authLoading = useAppSelector((state) => state.auth.loading);
 
@@ -50,6 +55,13 @@ export const AuthScreen = () => {
         const newLang = i18n.language === 'es' ? 'en' : 'es';
         i18n.changeLanguage(newLang);
     };
+
+    // Redirect to products when authenticated
+    React.useEffect(() => {
+        if (isAuthenticated) {
+            navigation.replace('Products');
+        }
+    }, [isAuthenticated, navigation]);
 
     return (
         <KeyboardAvoidingView

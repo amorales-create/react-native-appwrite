@@ -7,6 +7,7 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
     dispatch(loginStart());
     try {
         const user = await loginWithEmail(email, password);
+        console.log('Logged in user:', user);
         dispatch(loginSuccess(user));
     } catch (err: any) {
         dispatch(loginFailure(err?.message ?? 'Login failed'));
