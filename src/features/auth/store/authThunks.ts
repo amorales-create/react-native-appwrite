@@ -1,7 +1,7 @@
 import { AppDispatch } from '../../../shared/store/store';
 import { getCurrentUser, loginWithEmail, loginWithGoogle, logout as appwriteLogout } from '../services/appwriteAuth';
 import { registerWithEmail } from '../services/appwriteAuth';
-import { loginStart, loginSuccess, loginFailure, logout as logoutAction } from './authSlice';
+import { loginStart, logoutStart, loginSuccess, loginFailure, logoutFailure, logout as logoutAction } from './authSlice';
 
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
@@ -44,9 +44,16 @@ export const registerUser = (email: string, password: string, name?: string) => 
 };
 
 export const logoutUser = () => async (dispatch: AppDispatch) => {
+    dispatch(logoutStart());
     try {
+        console.log('Logging out user');
         await appwriteLogout();
-    } finally {
         dispatch(logoutAction());
+        return { success: true };
+    } catch (err: any) {
+        // Surface the logout error in state but clear local session
+        dispatch(logoutFailure(err?.message ?? 'Logout failed'));
+        dispatch(logoutAction());
+        return { success: false, error: err?.message ?? 'Logout failed' };
     }
 };

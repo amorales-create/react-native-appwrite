@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
 import { selectProducts } from '../store/productsSelectors';
 import { loadMockProducts } from '../store/productsSlice';
 import { logout } from '../../auth/store/authSlice';
+import { logoutUser } from '../../auth/store/authThunks';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { Card } from '../../../shared/components/Card';
 import Avatar from '../../../shared/components/Avatar';
@@ -20,10 +21,15 @@ export const ProductListScreen = () => {
     useEffect(() => {
         // Load mock products on mount
         dispatch(loadMockProducts());
+        console.log(user)
     }, [dispatch]);
 
     const handleLogout = () => {
-        dispatch(logout());
+        dispatch(logoutUser() as any).then((result: any) => {
+            if (result && result.success === false) {
+                Alert.alert('Logout failed', result.error || 'Could not logout');
+            }
+        });
     };
 
     const toggleLanguage = () => {

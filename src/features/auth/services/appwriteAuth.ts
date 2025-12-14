@@ -36,6 +36,7 @@ export async function getCurrentUser(): Promise<User | null> {
 }
 
 export async function logout(): Promise<void> {
+    console.log(account)
     await account.deleteSession('current');
 }
 
