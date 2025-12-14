@@ -43,6 +43,14 @@ Abre en Expo Go (Android/iOS) o usa el emulador de tu elección.
 
 Si integras un backend (Appwrite u otro), crea un archivo `.env` y añade las variables necesarias (URL, keys). Guarda la configuración en un lugar seguro y no incluyas credenciales en el repo.
 
+Si usas Appwrite, añade al menos:
+
+- `EXPO_PUBLIC_APPWRITE_ENDPOINT` – la URL de tu servidor Appwrite (p. ej. `https://cloud.appwrite.io/v1`)
+- `EXPO_PUBLIC_APPWRITE_PROJECT_ID` – el ID del proyecto en Appwrite
+- `EXPO_PUBLIC_APPWRITE_PLATFORM` – el bundle id o package name de tu app (p. ej. `com.example.app`)
+- `EXPO_PUBLIC_APPWRITE_OAUTH_SUCCESS_URL` – URL de redirección tras OAuth (configurada en Appwrite)
+- `EXPO_PUBLIC_APPWRITE_OAUTH_FAILURE_URL` – URL de fallo tras OAuth
+
 4. Flujos comunes
 
 - Crear una rama para tu cambio: `git checkout -b feat/mi-cambio`

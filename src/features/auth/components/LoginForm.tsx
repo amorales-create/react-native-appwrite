@@ -3,12 +3,14 @@ import { View, Text, TextInput } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../../shared/store/hooks';
+import { Button } from '../../../shared/components/Button';
 
 interface LoginFormProps {
     onSubmit: (data: { email: string; password: string }) => void;
+    onSignup?: (data: { email: string; password: string }) => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup }) => {
     const { t } = useTranslation();
     const theme = useAppSelector((state) => state.theme.mode);
     const isDark = theme === 'dark';
@@ -102,6 +104,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                     <Text className="text-red-500 text-sm mt-1">{errors.password.message}</Text>
                 )}
             </View>
+            {/* Submit Button */}
+            <View>
+                <Button variant="primary" onPress={handleSubmit(onSubmit)}>
+                    {t('auth.loginButton')}
+                </Button>
+            </View>
+
+            {/* Signup Button (optional) */}
+            {onSignup && (
+                <View>
+                    <Button variant="ghost" onPress={handleSubmit((data) => onSignup && onSignup(data))}>
+                        {t('auth.signupButton')}
+                    </Button>
+                </View>
+            )}
         </View>
     );
 };

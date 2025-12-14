@@ -13,6 +13,8 @@
         "emailInvalid": "Invalid email",
         "passwordRequired": "Password is required",
         "passwordMin": "Minimum 6 characters"
+        ,
+        "signupButton": "Create account"
     },
     "products": {
         "title": "Products",

@@ -12,7 +12,8 @@
     "emailRequired": "El correo es requerido",
     "emailInvalid": "Correo inválido",
     "passwordRequired": "La contraseña es requerida",
-    "passwordMin": "Mínimo 6 caracteres"
+    "passwordMin": "Mínimo 6 caracteres",
+    "signupButton": "Crear cuenta"
   },
   "products": {
     "title": "Productos",

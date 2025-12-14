@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
 import { loginSuccess } from '../store/authSlice';
+import { loginUser, loginWithGoogleThunk, registerUser } from '../store/authThunks';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { LoginForm } from '../components/LoginForm';
 import { Button } from '../../../shared/components/Button';
@@ -20,25 +21,22 @@ export const AuthScreen = () => {
     const dispatch = useAppDispatch();
     const theme = useAppSelector((state) => state.theme.mode);
     const isDark = theme === 'dark';
+    const authLoading = useAppSelector((state) => state.auth.loading);
 
     const handleEmailLogin = (data: { email: string; password: string }) => {
-        // For now, just simulate login (no actual authentication)
-        dispatch(
-            loginSuccess({
-                id: AUTH.DEFAULT_USER_ID,
-                email: data.email,
-                name: data.email.split('@')[0],
-                type: 'email',
-            })
-        );
+        dispatch(loginUser(data.email, data.password));
     };
 
     const handleGoogleLogin = () => {
-        // Visual only - no functionality yet
-        console.log(LOG_MESSAGES.GOOGLE_LOGIN_PRESSED);
+        if (authLoading) return;
+        // Kick off OAuth2 flow. Ensure redirect URLs are configured in Appwrite.
+        const success = process.env.EXPO_PUBLIC_APPWRITE_OAUTH_SUCCESS_URL ?? '';
+        const failure = process.env.EXPO_PUBLIC_APPWRITE_OAUTH_FAILURE_URL ?? '';
+        dispatch(loginWithGoogleThunk(success, failure));
     };
 
     const handleGuestLogin = () => {
+        if (authLoading) return;
         dispatch(
             loginSuccess({
                 id: AUTH.GUEST_ID,
@@ -109,15 +107,10 @@ export const AuthScreen = () => {
 
                     {/* Login Form */}
                     <View className="mb-6">
-                        <LoginForm onSubmit={handleEmailLogin} />
+                        <LoginForm onSubmit={handleEmailLogin} onSignup={(data) => dispatch(registerUser(data.email, data.password))} />
                     </View>
 
-                    {/* Login Button */}
-                    <View className="mb-6">
-                        <Button variant="primary" onPress={() => { /* handled by form submit */ }}>
-                            {t('auth.loginButton')}
-                        </Button>
-                    </View>
+                    {/* Login handled by form submit inside LoginForm */}
 
                     {/* Divider */}
                     <View className="flex-row items-center mb-6">
