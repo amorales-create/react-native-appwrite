@@ -26,8 +26,8 @@ export const fetchCurrentUser = () => async (dispatch: AppDispatch) => {
 export const loginWithGoogleThunk = (successUrl: string, failureUrl: string) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
     try {
-        await loginWithGoogle(successUrl, failureUrl);
-        // OAuth flow will handle redirect and session creation; caller should then call fetchCurrentUser
+        const user = await loginWithGoogle();
+         if (user) dispatch(loginSuccess(user))
     } catch (err: any) {
         dispatch(loginFailure(err?.message ?? 'Google login failed'));
     }

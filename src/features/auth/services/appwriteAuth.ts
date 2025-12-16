@@ -1,6 +1,8 @@
+import { OAuthProvider } from 'react-native-appwrite';
 import { account } from '../../../lib/appwrite';
 import { User } from '../../../shared/types';
-
+import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 function normalizeUser(raw: any): User {
     return {
         id: raw.$id ?? raw.id,
@@ -45,10 +47,28 @@ export async function logout(): Promise<void> {
  * On mobile you must provide valid redirect URLs configured in Appwrite
  * and handle the incoming redirect in your app (e.g., via Linking or a custom scheme).
  */
-export async function loginWithGoogle(successUrl: string, failureUrl: string): Promise<void> {
-    if (!successUrl || !failureUrl) {
-        throw new Error('OAuth redirect URLs not provided');
+export async function loginWithGoogle(): Promise<User> {
+   try {
+            const redirectUri = Linking.createURL('/');
+            // @ts-ignore: OAuthProvider type mismatch in some SDK versions
+            const response = await account.createOAuth2Token('google', redirectUri, redirectUri);
+
+            if (!response) throw new Error('Failed to create OAuth2 token');
+
+            const result = await WebBrowser.openAuthSessionAsync(response.toString(), redirectUri);
+
+            if (result.type !== 'success')  throw new Error('User cancelled or authentication failed');
+
+            const url = new URL(result.url);
+            const secret = url.searchParams.get('secret');
+            const userId = url.searchParams.get('userId');
+
+            if (!secret || !userId) throw new Error('Failed to get secret or userId');
+
+            await account.createSession(userId, secret);
+            const me = await account.get();
+            return normalizeUser(me);
+        } catch (error: any) {
+            throw new Error('Login with Google failed: ' + error.message);
+        }
     }
-    // This will attempt to start the OAuth2 flow. Behavior differs between platforms.
-    await account.createOAuth2Session('google' as any, successUrl, failureUrl);
-}

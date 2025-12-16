@@ -48,8 +48,8 @@ Si usas Appwrite, añade al menos:
 - `EXPO_PUBLIC_APPWRITE_ENDPOINT` – la URL de tu servidor Appwrite (p. ej. `https://cloud.appwrite.io/v1`)
 - `EXPO_PUBLIC_APPWRITE_PROJECT_ID` – el ID del proyecto en Appwrite
 - `EXPO_PUBLIC_APPWRITE_PLATFORM` – el bundle id o package name de tu app (p. ej. `com.example.app`)
-- `EXPO_PUBLIC_APPWRITE_OAUTH_SUCCESS_URL` – URL de redirección tras OAuth (configurada en Appwrite)
-- `EXPO_PUBLIC_APPWRITE_OAUTH_FAILURE_URL` – URL de fallo tras OAuth
+- `EXPO_PUBLIC_APPWRITE_OAUTH_SUCCESS_URL` – URL de redirección tras OAuth (configurada en Appwrite). Example for Expo AuthSession: `https://auth.expo.io/@<expo-username>/<expo-slug>` or a custom scheme like `com.example.mobileappappwrite://redirect`.
+- `EXPO_PUBLIC_APPWRITE_OAUTH_FAILURE_URL` – URL de fallo tras OAuth (same host/scheme as success). Add these to Appwrite console under your project's Google OAuth provider settings.
 
 4. Flujos comunes
 
