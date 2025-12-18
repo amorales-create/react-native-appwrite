@@ -4,11 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../shared/store/hooks';
 import { selectProducts } from '../store/productsSelectors';
 import { loadMockProducts } from '../store/productsSlice';
-import { logout } from '../../auth/store/authSlice';
-import { logoutUser } from '../../auth/store/authThunks';
 import { toggleTheme } from '../../../shared/theme/themeSlice';
 import { Card } from '../../../shared/components/Card';
-import Avatar from '../../../shared/components/Avatar';
 
 export const ProductListScreen = () => {
     const { t, i18n } = useTranslation();
@@ -23,14 +20,6 @@ export const ProductListScreen = () => {
         dispatch(loadMockProducts());
         console.log(user)
     }, [dispatch]);
-
-    const handleLogout = () => {
-        dispatch(logoutUser() as any).then((result: any) => {
-            if (result && result.success === false) {
-                Alert.alert('Logout failed', result.error || 'Could not logout');
-            }
-        });
-    };
 
     const toggleLanguage = () => {
         const newLang = i18n.language === 'es' ? 'en' : 'es';
@@ -65,14 +54,7 @@ export const ProductListScreen = () => {
                     </View>
 
                     <View className="flex-row space-x-2">
-                        {user && (
-                            <View className="mr-3">
-                                <Avatar
-                                    email={user.email}
-                                    onPress={() => Alert.alert('User', user.email ?? 'No email')}
-                                />
-                            </View>
-                        )}
+                    
                         {/* Language Toggle */}
                         <TouchableOpacity
                             onPress={toggleLanguage}
@@ -99,17 +81,6 @@ export const ProductListScreen = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-                {/* Logout Button */}
-                <TouchableOpacity
-                    onPress={handleLogout}
-                    className="w-full py-3 rounded-lg bg-light-primary active:bg-light-primaryDark"
-                    activeOpacity={0.8}
-                >
-                    <Text className="text-white text-center text-base font-semibold">
-                        {t('products.logout')}
-                    </Text>
-                </TouchableOpacity>
             </View>
 
             {/* Product List */}
