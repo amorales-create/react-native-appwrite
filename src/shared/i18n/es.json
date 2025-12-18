@@ -26,5 +26,11 @@
     "darkMode": "Modo oscuro",
     "lightMode": "Modo claro",
     "language": "Idioma"
+  },
+  "home": {
+    "welcome": "¡Bienvenido, {{name}}!",
+    "summary": "Resumen rápido de tu cuenta",
+    "totalProducts": "Tienes {{count}} productos",
+    "viewProducts": "Ver productos"
   }
 }

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAppSelector } from '../shared/store/hooks';
 import { selectIsAuthenticated } from '../features/auth/store/authSelectors';
 import { AuthScreen } from '../features/auth/screens/AuthScreen';
-import { ProductListScreen } from '../features/products/screens/ProductListScreen';
+import ProductNavigation from './ProductNavigation';
 
 export type RootStackParamList = {
     Auth: undefined;
@@ -21,7 +21,7 @@ export const AppNavigator = () => {
                 {!isAuthenticated ? (
                     <AuthScreen />
                 ) : (
-                    <ProductListScreen />
+                    <ProductNavigation />
                 )}
 
         </NavigationContainer>
