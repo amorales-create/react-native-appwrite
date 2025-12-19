@@ -49,7 +49,6 @@ const ProductNavigation = () => {
           return <Text style={{ fontSize: 18 }}>{icon}</Text>;
         },
         header(props) {
-            console.log(props);
           return ProductNavigationHeader(props.route.name);
         },
       })}
