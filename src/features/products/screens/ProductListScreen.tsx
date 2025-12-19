@@ -5,18 +5,11 @@ import { useAppDispatch, useAppSelector } from "../../../shared/store/hooks";
 import { selectProducts } from "../store/productsSelectors";
 import { loadMockProducts } from "../store/productsSlice";
 import { Card } from "../../../shared/components/Card";
-<<<<<<< HEAD
-import LanguageToggle from "src/shared/components/LanguageToggle";
-import ThemeToggle from "src/shared/components/ThemeToggle";
 
-export const ProductListScreen = () => {
-  const { t, i18n } = useTranslation();
-=======
 
 
 export const ProductListScreen = () => {
   const { t } = useTranslation();
->>>>>>> c0c886f (update: general adjusts)
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const theme = useAppSelector((state) => state.theme.mode);
@@ -53,3 +46,4 @@ export const ProductListScreen = () => {
     </View>
   );
 };
+

@@ -72,7 +72,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup, handle
             </View>
 
             {/* Password Input */}
-            <View>
+            <View className='mb-4'>
                 <Text
                     className={`text-sm font-medium mb-2 ${isDark ? 'text-dark-text' : 'text-light-text'
                         }`}
@@ -109,20 +109,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onSignup, handle
                 )}
             </View>
             {/* Submit Button */}
-            <View>
+            <View className="mb-4">
                 <Button variant="primary" onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
                     {t('auth.loginButton')}
                 </Button>
             </View>
 
             {/* Signup Button (optional) */}
-            {onSignup && (
-                <View>
+                <View className='mb-4'>
                     <Button variant="ghost" onPress={handleSubmit((data) => onSignup && onSignup(data))} disabled={isSubmitting}>
                         {t('auth.signupButton')}
                     </Button>
                 </View>
-            )}
             <View className="flex-row items-center mb-6">
                 <View
                     className={`flex-1 h-px ${isDark ? "bg-dark-border" : "bg-light-border"
