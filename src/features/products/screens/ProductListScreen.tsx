@@ -19,7 +19,6 @@ export const ProductListScreen = () => {
   useEffect(() => {
     // Load mock products on mount
     dispatch(loadMockProducts());
-    console.log(user);
   }, [dispatch]);
 
 
