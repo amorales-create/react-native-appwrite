@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -16,26 +15,26 @@ import {
   loginWithGoogleThunk,
   registerUser,
 } from "../store/authThunks";
-import { toggleTheme } from "../../../shared/theme/themeSlice";
 import { LoginForm } from "../components/LoginForm";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../../navigation/AppNavigator";
 import { Button } from "../../../shared/components/Button";
-import {
-  LOG_MESSAGES,
-  DEFAULTS,
-  DIVIDER,
-  THEME_EMOJI,
-  ICONS,
-  AUTH,
-} from "../../../shared/constants/ui";
+import { DEFAULTS, DIVIDER, ICONS, AUTH } from "../../../shared/constants/ui";
+import ThemeToggle from "src/shared/components/ThemeToggle";
+import LanguageToggle from "src/shared/components/LanguageToggle";
 
 interface AuthScreenProps {
-    redirect?:boolean
-}    
-export const AuthScreen :React.FC<AuthScreenProps> = ({ redirect=true })  => {
-  const { t, i18n } = useTranslation();
+  redirect?: boolean;
+  showThemeToggle?: boolean;
+  showLanguageToggle?: boolean;
+}
+export const AuthScreen: React.FC<AuthScreenProps> = ({
+  redirect = true,
+  showThemeToggle = true,
+  showLanguageToggle = true,
+}) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.theme.mode);
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -51,9 +50,7 @@ export const AuthScreen :React.FC<AuthScreenProps> = ({ redirect=true })  => {
 
   const handleGoogleLogin = () => {
     if (authLoading) return;
-    const success = process.env.EXPO_PUBLIC_APPWRITE_OAUTH_SUCCESS_URL ?? "";
-    const failure = process.env.EXPO_PUBLIC_APPWRITE_OAUTH_FAILURE_URL ?? "";
-    dispatch(loginWithGoogleThunk(success, failure));
+    dispatch(loginWithGoogleThunk());
   };
 
   const handleGuestLogin = () => {
@@ -65,11 +62,6 @@ export const AuthScreen :React.FC<AuthScreenProps> = ({ redirect=true })  => {
         type: "guest",
       })
     );
-  };
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "es" ? "en" : "es";
-    i18n.changeLanguage(newLang);
   };
 
   // Redirect to products when authenticated
@@ -95,53 +87,27 @@ export const AuthScreen :React.FC<AuthScreenProps> = ({ redirect=true })  => {
         className={`flex-1 ${isDark ? "bg-dark-bg" : "bg-light-bg"}`}
         contentContainerClassName="flex-grow"
       >
-        <View className="flex-1 px-6 pt-16 pb-8">
+        <View className="px-6 pb-8">
           {/* Header with controls */}
           <View className="flex-row justify-end mb-8 space-x-3">
             {/* Language Toggle */}
-            <TouchableOpacity
-              onPress={toggleLanguage}
-              className={`px-4 py-2 rounded-lg ${
-                isDark ? "bg-dark-surface" : "bg-light-surface"
-              }`}
-              activeOpacity={0.7}
-            >
-              <Text
-                className={`text-sm font-medium ${
-                  isDark ? "text-dark-text" : "text-light-text"
-                }`}
-              >
-                {i18n.language.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
 
+            {showLanguageToggle && <LanguageToggle />}
             {/* Theme Toggle */}
-            <TouchableOpacity
-              onPress={() => dispatch(toggleTheme())}
-              className={`px-4 py-2 rounded-lg ${
-                isDark ? "bg-dark-surface" : "bg-light-surface"
-              }`}
-              activeOpacity={0.7}
-            >
-              <Text className="text-xl">
-                {isDark ? THEME_EMOJI.DARK : THEME_EMOJI.LIGHT}
-              </Text>
-            </TouchableOpacity>
+            {showThemeToggle && <ThemeToggle />}
           </View>
 
           {/* Title */}
           <View className="mb-12">
             <Text
-              className={`text-4xl font-bold mb-2 ${
-                isDark ? "text-dark-text" : "text-light-text"
-              }`}
+              className={`text-4xl font-bold mb-2 ${isDark ? "text-dark-text" : "text-light-text"
+                }`}
             >
               {t("auth.title")}
             </Text>
             <Text
-              className={`text-lg ${
-                isDark ? "text-dark-textSecondary" : "text-light-textSecondary"
-              }`}
+              className={`text-lg ${isDark ? "text-dark-textSecondary" : "text-light-textSecondary"
+                }`}
             >
               {t("auth.subtitle")}
             </Text>
@@ -163,21 +129,18 @@ export const AuthScreen :React.FC<AuthScreenProps> = ({ redirect=true })  => {
           {/* Divider */}
           <View className="flex-row items-center mb-6">
             <View
-              className={`flex-1 h-px ${
-                isDark ? "bg-dark-border" : "bg-light-border"
-              }`}
+              className={`flex-1 h-px ${isDark ? "bg-dark-border" : "bg-light-border"
+                }`}
             />
             <Text
-              className={`mx-4 ${
-                isDark ? "text-dark-textSecondary" : "text-light-textSecondary"
-              }`}
+              className={`mx-4 ${isDark ? "text-dark-textSecondary" : "text-light-textSecondary"
+                }`}
             >
               {DIVIDER.OR}
             </Text>
             <View
-              className={`flex-1 h-px ${
-                isDark ? "bg-dark-border" : "bg-light-border"
-              }`}
+              className={`flex-1 h-px ${isDark ? "bg-dark-border" : "bg-light-border"
+                }`}
             />
           </View>
 

@@ -1,44 +1,65 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../features/home/screens/HomeScreen';
-import { ProductListScreen } from '../features/products/screens/ProductListScreen';
-import ProfileScreen from '../features/auth/screens/ProfileScreen';
-import FinanceScreen from '../features/finance/screens/FinanceScreen';
+import React from "react";
+import { Text } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "../features/home/screens/HomeScreen";
+import { ProductListScreen } from "../features/products/screens/ProductListScreen";
+import ProfileScreen from "../features/auth/screens/ProfileScreen";
+import FinanceScreen from "../features/finance/screens/FinanceScreen";
+import { View } from "react-native";
+import LanguageToggle from "src/shared/components/LanguageToggle";
+import ThemeToggle from "src/shared/components/ThemeToggle";
 
 export type ProductTabParamList = {
-    Home: undefined;
-    Products: undefined;
-    Profile: undefined;
-    Finances: undefined;
+  Home: undefined;
+  Products: undefined;
+  Profile: undefined;
+  Finances: undefined;
 };
 
 const Tab = createBottomTabNavigator<ProductTabParamList>();
 
-const ProductNavigation = () => {
-    return (
-        <Tab.Navigator
-            detachInactiveScreens={false}
-            screenOptions={({ route }) => ({
-                headerShown: false,
-                tabBarIcon: ({ color, size }) => {
-                    // Use simple emoji icons to avoid adding extra icon dependencies
-                    let icon = '•';
-                    if (route.name === 'Home') icon = '🏠';
-                    if (route.name === 'Products') icon = '📦';
-                    if (route.name === 'Profile') icon = '👤';
-                    if (route.name === 'Finances') icon = '💰';
+const routeIcons: Record<keyof ProductTabParamList, string> = {
+  Home: "🏠",
+  Products: "📦",
+  Profile: "👤",
+  Finances: "💰",
+};
 
-                    return <Text style={{ fontSize: 18 }}>{icon}</Text>;
-                },
-            })}
-        >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Products" component={ProductListScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-            <Tab.Screen name="Finances" component={FinanceScreen} />
-        </Tab.Navigator>
-    );
+const ProductNavigationHeader = (text:string) => {
+  return (
+    <View className="w-full h-16 mt-16 flex-row items-center justify-between px-6 border-b border-light-border dark:border-dark-border">
+      <Text className="text-lg font-bold text-light-text dark:text-dark-text">
+      {text}
+      </Text>
+      <View className="flex-row">
+        <LanguageToggle />
+        <ThemeToggle />
+      </View>
+    </View>
+  );
+};
+const ProductNavigation = () => {
+  return (
+    <Tab.Navigator
+      detachInactiveScreens={false}
+      screenOptions={({ route }) => ({
+        headerShown: true,
+        tabBarIcon: ({ color, size }) => {
+          let icon = routeIcons[route.name];
+          return <Text style={{ fontSize: 18 }}>{icon}</Text>;
+        },
+        header(props) {
+            console.log(props);
+          return ProductNavigationHeader(props.route.name);
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Products" component={ProductListScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Finances" component={FinanceScreen} />
+    </Tab.Navigator>
+  );
 };
 
 export default ProductNavigation;

@@ -23,7 +23,7 @@ export const fetchCurrentUser = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const loginWithGoogleThunk = (successUrl: string, failureUrl: string) => async (dispatch: AppDispatch) => {
+export const loginWithGoogleThunk = () => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
     try {
         const user = await loginWithGoogle();
