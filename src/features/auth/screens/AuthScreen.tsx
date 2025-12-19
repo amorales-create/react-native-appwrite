@@ -19,16 +19,21 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../../../navigation/AppNavigator";
 import { DEFAULTS, AUTH } from "../../../shared/constants/ui";
 import LoginFormHeader from "../components/LoginFormHeader";
+import { useTranslation } from "react-i18next";
 
 interface AuthScreenProps {
   redirect?: boolean;
   showThemeToggle?: boolean;
   showLanguageToggle?: boolean;
+  formTitle?:string
+  formSubtitle?:string
 }
 export const AuthScreen: React.FC<AuthScreenProps> = ({
   redirect = true,
   showThemeToggle = true,
   showLanguageToggle = true,
+  formTitle='',
+  formSubtitle=''
 }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.theme.mode);
@@ -38,7 +43,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   const isDark = theme === "dark";
   const authLoading = useAppSelector((state) => state.auth.loading);
   const authError = useAppSelector((state) => state.auth.error);
-
+  const { t } = useTranslation();
   const handleEmailLogin = (data: { email: string; password: string }) => {
     dispatch(loginUser(data.email, data.password));
   };
@@ -84,8 +89,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
           <LoginFormHeader
             showThemeToggle={showThemeToggle}
             showLanguageToggle={showLanguageToggle}
+            title={formTitle}
+            subtitle={formSubtitle}
           />
-         
+
           <View className="mb-6">
             <LoginForm
               onSubmit={handleEmailLogin}

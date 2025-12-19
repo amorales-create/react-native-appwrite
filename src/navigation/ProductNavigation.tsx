@@ -51,6 +51,7 @@ const ProductNavigation = () => {
         header(props) {
           return ProductNavigationHeader(props.route.name);
         },
+        animation:"shift"
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

@@ -6,6 +6,7 @@ import { selectIsAuthenticated } from "../features/auth/store/authSelectors";
 import { AuthScreen } from "../features/auth/screens/AuthScreen";
 import ProductNavigation from "./ProductNavigation";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export type RootStackParamList = {
   Auth: undefined;
@@ -16,12 +17,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-
+ const { t } = useTranslation();
   return (
     <NavigationContainer>
       {!isAuthenticated ? (
         <View className="pt-16 flex-1 w-full">
-          <AuthScreen />
+          <AuthScreen formTitle={t("auth.title")} formSubtitle={t("auth.subtitle")}/>
         </View>
       ) : (
         <ProductNavigation />
