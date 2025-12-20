@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zing Burger UI Artifact</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --wolt-blue: #009de0;
+            --wolt-light-blue: #e2f4fd;
+            --text-black: #202125;
+            --text-grey: #707070;
+            --zing-orange: #ff5e00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contenedor del móvil */
+        .app-shell {
+            width: 380px;
+            height: 820px;
+            background: white;
+            border-radius: 45px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 0 0 10px #1a1a1a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Barra de estado superior */
+        .status-bar {
+            height: 44px;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+            color: white;
+        }
+
+        /* Cabecera con Imagen */
+        .hero {
+            height: 240px;
+            background: linear-gradient(rgba(0,0,0,0.2), transparent), url('https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-nav {
+            padding: 50px 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .round-btn {
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-pill {
+            flex: 1;
+            height: 36px;
+            background: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Logo de Zing */
+        .logo-floating {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75px;
+            height: 75px;
+            background: var(--zing-orange);
+            border: 4px solid white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Contenido */
+        .main-content {
+            padding: 45px 20px 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 0 8px;
+            color: var(--text-black);
+        }
+
+        .info-bar {
+            font-size: 13px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .blue-link { color: var(--wolt-blue); font-weight: 600; text-decoration: none; }
+
+        /* Botones de entrega */
+        .action-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .delivery-btn {
+            flex: 1;
+            background: var(--wolt-light-blue);
+            color: var(--wolt-blue);
+            border-radius: 12px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .utility-btn {
+            width: 48px;
+            height: 48px;
+            background: var(--wolt-light-blue);
+            color: var(--wolt-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* Wolt+ Banner */
+        .wolt-plus-banner {
+            border: 1px dashed var(--wolt-blue);
+            border-radius: 16px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .banner-text {
+            text-align: left;
+            flex: 1;
+        }
+
+        .banner-title { font-weight: 800; font-size: 13px; }
+        .banner-link { color: var(--wolt-blue); font-size: 11px; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+
+        /* Grid de Productos */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2 { font-size: 18px; font-weight: 800; margin: 0; }
+        .see-all { background: var(--wolt-light-blue); color: var(--wolt-blue); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .card {
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .card-img {
+            height: 110px;
+            background: #222;
+            position: relative;
+        }
+
+        .card-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+
+        .add-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: white;
+            color: var(--wolt-blue);
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .card-body { padding: 10px; }
+        .price { color: var(--wolt-blue); font-weight: 800; font-size: 13px; }
+        .item-name { font-size: 11px; font-weight: 800; margin-top: 5px; line-height: 1.3; text-transform: uppercase; }
+
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <div class="status-bar">
+        <span>15:25</span>
+        <div style="display:flex; gap: 5px;">
+            <i class="fa-solid fa-signal"></i>
+            <i class="fa-solid fa-wifi"></i>
+            <i class="fa-solid fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-nav">
+            <div class="round-btn"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="search-pill"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;Search</div>
+            <div class="round-btn"><i class="fa-regular fa-heart"></i></div>
+        </div>
+        <div class="logo-floating">
+            <div style="font-size: 14px; letter-spacing: 1px;">ZING</div>
+            <div style="font-size: 7px;">BURGER&CO</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 class="title">ZING BURGER & Co. | Rákóczi tér</h1>
+        <div class="info-bar">
+            <i class="fa-regular fa-face-smile"></i> 8.8 · Open until 24:00 · Min. order 2 000,00 HUF<br>
+            <i class="fa-solid fa-person-bicycle"></i> 0,00 HUF · <span class="blue-link">More</span>
+        </div>
+
+        <div class="action-container">
+            <div class="delivery-btn">
+                <span><i class="fa-solid fa-person-bicycle"></i> &nbsp;Delivery 30-40 min</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="utility-btn"><i class="fa-solid fa-users"></i></div>
+            <div class="utility-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+        </div>
+
+        <div class="wolt-plus-banner">
+            <div style="background: var(--wolt-blue); color: white; padding: 5px; border-radius: 5px; font-size: 10px; font-weight: bold;">Wolt+</div>
+            <div class="banner-text">
+                <div class="banner-title">2 000 HUF off on orders over 6 000 HUF</div>
+                <div class="banner-link">SUBSCRIBE TO CLAIM <i class="fa-solid fa-circle-arrow-right"></i></div>
+            </div>
+            <i class="fa-solid fa-ticket" style="color: var(--wolt-blue); font-size: 20px;"></i>
+        </div>
+
+        <div class="section-title">
+            <h2>Most ordered</h2>
+            <span class="see-all">See all</span>
+        </div>
+
+        <div class="products-grid">
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400" alt="Smashed Burger">
+                    <div class="add-icon">+</div>
+                </div>
+                <div class="card-body">
+                    <div class="price">2 190 HUF</div>
+                    <div class="item-name">SMASHED BURGER BACK TO SCHOOL</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Street Burger">
+                    <div class="add-icon">+</div>
+                </div>
+                <div class="card-body">
+                    <div class="price">3 340 HUF</div>
+                    <div class="item-name">STREET BURGER ANGUS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
