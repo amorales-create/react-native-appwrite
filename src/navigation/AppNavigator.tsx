@@ -7,23 +7,18 @@ import { AuthScreen } from '../features/auth/screens/AuthScreen';
 import { ProductListScreen } from '../features/products/screens/ProductListScreen';
 
 export type RootStackParamList = {
-    Auth: undefined;
-    Products: undefined;
+  Auth: undefined;
+  Products: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const AppNavigator = () => {
-    const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-    return (
-        <NavigationContainer>
-                {!isAuthenticated ? (
-                    <AuthScreen />
-                ) : (
-                    <ProductListScreen />
-                )}
-
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      {!isAuthenticated ? <AuthScreen /> : <ProductListScreen />}
+    </NavigationContainer>
+  );
 };

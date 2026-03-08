@@ -1,19 +1,19 @@
 // Shared TypeScript types and interfaces
 
 export interface User {
-    id: string;
-    email?: string;
-    name?: string;
-    type: 'email' | 'google' | 'guest';
+  id: string;
+  email?: string;
+  name?: string;
+  type: 'email' | 'google' | 'guest';
 }
 
 export interface Product {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    category: string;
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
 }
 
 export type Theme = 'light' | 'dark';

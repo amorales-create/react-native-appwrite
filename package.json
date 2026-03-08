@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@react-navigation/native": "^7.1.25",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "prettier": "^3.8.1",
     "typescript": "~5.9.2"
   },
   "private": true
