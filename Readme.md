@@ -29,16 +29,16 @@
 
 ### Scripts agregados
 
-- `npm run test`: Ejecuta tests con Jest.
+<!-- - `npm run test`: Ejecuta tests con Jest. -->
 - `npm run lint`: Ejecuta ESLint.
 - `npm run format`: Ejecuta Prettier.
 
 ### Recomendación
 
-- Añade tests en `src/__tests__/` o archivos `*.test.ts(x)`.
+<!-- - Añade tests en `src/__tests__/` o archivos `*.test.ts(x)`. -->
 - Migra la configuración de ESLint a `eslint.config.js` para compatibilidad total.
 
-# Gildi
+# Proyecto
 
 ## Descripción
 

@@ -2,7 +2,7 @@
 
 ## Contexto del proyecto
 
-Gildi es una app móvil basada en React Native, estructurada por carpetas de funcionalidad (feature folders). Utiliza Redux Toolkit para el manejo de estado, Tailwind CSS para estilos, e internacionalización con i18n.
+Esta es una app móvil basada en React Native, estructurada por carpetas de funcionalidad (feature folders). Utiliza Redux Toolkit para el manejo de estado, Tailwind CSS para estilos, e internacionalización con i18n.
 
 ---
 
